@@ -10,8 +10,14 @@ namespace WebApplication4.Pages.Usuarios
 {
     public class CadastrarModel : PageModel
     {
+
+       public static List<Usuario> usuarios = new List<Usuario>();
+
+
         [BindProperty(SupportsGet = true)]
+
         public Usuario usuario { get; set; }
+
         public void OnGet(string nome, string senha)
         {
             if (usuario == null)
@@ -19,5 +25,14 @@ namespace WebApplication4.Pages.Usuarios
                 usuario = new Usuario();
             }
         }
+        [HttpPost]
+        public void OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                usuarios.Add(usuario);
+            }
+        }
+
     }
 }
