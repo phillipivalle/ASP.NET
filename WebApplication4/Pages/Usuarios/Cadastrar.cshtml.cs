@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
+using WebApplication4.Models;
 
 namespace WebApplication4.Pages.Usuarios
 {
@@ -25,12 +26,19 @@ namespace WebApplication4.Pages.Usuarios
                 usuario = new Usuario();
             }
         }
+        WebApplication4Context _context;
+        public CadastrarModel(WebApplication4Context context)
+        {
+            _context = context;
+        }
+
         [HttpPost]
         public void OnPost()
         {
             if (ModelState.IsValid)
             {
-                usuarios.Add(usuario);
+                _context.Usuario.Add(usuario);
+                _context.SaveChanges();
             }
         }
 

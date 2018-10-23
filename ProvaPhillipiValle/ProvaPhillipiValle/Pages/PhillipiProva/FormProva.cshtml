@@ -1,0 +1,54 @@
+﻿@page
+@model ProvaPhillipiValle.Pages.PhillipiProva.RequestModel
+@{
+    ViewData["Title"] = "FormProva";
+}
+
+
+
+<div class="container">
+    <h2>Comando API</h2>
+
+    <form method="post">
+
+        <div class="form-group">
+            <label for="Comando">Comando</label>
+            <input type="text" for="Comando" id="Comando" class="form-control" placeholder="Comando" />
+           
+        </div>
+
+        <button class="btn" type="button" onclick="buscaAPI()">Buscar</button>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body" id="ender">
+                texto qualquer
+            </div>
+        </div>
+        <div class="collapse" id="collapseForm">
+            <label>Resposta</label>
+            <input type="text" name="api.Response" id="resposta" class="form-control" />
+
+        </div>
+        <hr />
+    </form>
+</div>
+
+<script>
+    function buscaAPI() {
+        let comando = document.querySelector("#Comando");
+        let value = comando.value;
+        $.getJSON("http://cursos.somee.com/api/cmd?usuario=PhillipiValle&dado=" + value,
+            function (resp) {
+                if (resp.erro) {
+
+                    document.querySelector("#ender").innerHTML = "Comando não encontrado";
+                    $('#collapseExample').collapse('show');
+                    $('#collapseForm').collapse('hide');
+                } else {
+                    document.querySelector("#resposta").value = resp;
+                    $('#collapseExample').collapse('hide');
+                    $('#collapseForm').collapse('show');
+                }
+            });
+    }
+</script>
+
